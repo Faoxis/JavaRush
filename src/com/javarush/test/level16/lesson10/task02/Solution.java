@@ -17,52 +17,25 @@ public class Solution {
     public static void main(String[] args) throws InterruptedException {
         RacingClock clock = new RacingClock();
         //add your code here - добавь код тут
+        Thread.sleep(3500);
+        clock.interrupt();
     }
 
-    public static class RacingClock extends Thread {
+    public static class RacingClock extends Thread  {
         public RacingClock() {
             start();
         }
 
         public void run() {
             //add your code here - добавь код тут
-
-            int count = countSeconds;
-
-            System.out.print( (count--) + " ");
-
-            try
-            {
-                while (true)
-                {
-
-                    if (countSeconds < 4)
-                    {
-                        while (count > 0)
-                        {
-                            System.out.print(count + " ");
-                            count--;
-
-                            Thread.sleep(1000);
-                        }
-                        System.out.print("Марш!");
-                        Thread.currentThread().interrupt();
-                    } else
-                    {
-                        while (count > 0)
-                        {
-
-                            Thread.sleep(1000);
-                            System.out.print(count + " ");
-                            count--;
-                        }
-                        System.out.print("Прервано!");
-                        Thread.currentThread().interrupt();
-                    }
-
+            try {
+                while (countSeconds != 0) {
+                    System.out.print(countSeconds-- + " ");
+                    sleep(1000);
                 }
+                System.out.print("Марш!");
             } catch (InterruptedException e) {
-
+                System.out.print("Прервано!");
             }
 
         }
