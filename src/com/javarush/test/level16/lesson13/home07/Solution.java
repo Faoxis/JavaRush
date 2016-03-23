@@ -68,8 +68,8 @@ public class Solution {
             //Add your code here - добавь код тут
             try {
                 for (int i = 0; i < OnlineGame.steps.size(); ++i) {
-                    Thread.sleep(Integer.valueOf(1000 / rating));
                     System.out.println(this.getName() + ":" + OnlineGame.steps.get(i));
+                    Thread.sleep(Integer.valueOf(1000 / rating));
                 }
                 System.out.println(this.getName() + ":победитель!");
                 OnlineGame.isWinnerFound = true;

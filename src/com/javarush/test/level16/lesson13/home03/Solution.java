@@ -16,28 +16,38 @@ package com.javarush.test.level16.lesson13.home03;
 
 public class Solution {
     static int count = 15;
-    static volatile int countCreatedThreads = 1;
+    static volatile int countCreatedThreads;
 
     public static void main(String[] args) {
         System.out.println(new GenerateThread());
     }
 
     public static class GenerateThread extends Thread {
-
-        public GenerateThread() {
-            super(String.valueOf(countCreatedThreads++));
-            this.start();
-        }
-
-        public void run() {
-            while (countCreatedThreads <= count) {
-                System.out.println((new GenerateThread()).toString());
-            }
+        GenerateThread() {
+            super(String.valueOf(++countCreatedThreads));
+            start();
         }
 
         @Override
-        public String toString() {
+        public String toString()
+        {
             return super.getName() + " created";
         }
+
+        public void run() {
+            while (countCreatedThreads < count) {
+                GenerateThread thread = new GenerateThread();
+                System.out.println(thread);
+                try
+                {
+                    thread.join();
+                }
+                catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        }
+
     }
 }
