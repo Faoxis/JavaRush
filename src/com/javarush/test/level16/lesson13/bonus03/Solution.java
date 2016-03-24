@@ -30,7 +30,9 @@ public class Solution {
 
     public static class TestedThread extends Thread {
         public TestedThread(UncaughtExceptionHandler handler) {
-            setUncaughtExceptionHandler(handler);
+            // В этом задании я просто поменял setUncaughtExceptionHandler(handler)
+            // на setDefaultUncaughtExceptionHandler(handler) и все...
+            setDefaultUncaughtExceptionHandler(handler);
             start();
         }
 
