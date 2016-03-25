@@ -18,108 +18,70 @@ import java.util.List;
 Подсказка: Нить 4 можно проверить методом isAlive()
 */
 
-public class Solution
-{
+public class Solution {
     public static List<Thread> threads = new ArrayList<Thread>(5);
 
-    static
-    {
-        threads.add(new Thread(new Thread1()));
-        threads.add(new Thread(new Thread2()));
-        threads.add(new Thread(new Thread3()));
-        threads.add(new Thread(new Thread4()));
-        threads.add(new Thread(new Thread5()));
+    static {
+        threads.add(new Thread1());
+        threads.add(new Thread2());
+        threads.add(new Thread3());
+        threads.add(new Thread4());
+        threads.add(new Thread5());
     }
 
-
-    //------------------------ Нить №1 ------------------------//
-    public static class Thread1 implements Runnable
-    {
-        public void run()
-        {
-            while (true) ;
+    public static class Thread1 extends Thread {
+        public void run() {
+            while(true);
         }
     }
-    //=========================================================//
 
-
-    //------------------------ Нить №2 ------------------------//
-    public static class Thread2 implements Runnable
-    {
-        public void run()
-        {
-            while (!Thread.currentThread().isInterrupted()) ;
+    public static class Thread2 extends Thread {
+        public void run() {
+            while(!isInterrupted()) {}
             System.out.println("InterruptedException");
         }
     }
-    //=========================================================//
 
-
-    //------------------------ Нить №3 ------------------------//
-    public static class Thread3 implements Runnable
-    {
-        public void run()
-        {
-            try
-            {
-                Thread.currentThread().sleep(500);
+    public static class Thread3 extends Thread {
+        public void run() {
+            try {
                 System.out.println("Ура");
+                Thread.currentThread().sleep(500);
             }
-            catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-
+            catch (InterruptedException e) {}
         }
     }
-    //=========================================================//
 
-
-    //------------------------ Нить №4 ------------------------//
-    public static class Thread4 implements Runnable, Message
-    {
+    public static class Thread4 extends Thread implements Message {
         @Override
-        public void showWarning()
-        {
-            Thread.currentThread().interrupt();
+        public void showWarning() {
+            this.interrupt();
         }
 
-        public void run()
-        {
-            while (!Thread.currentThread().isInterrupted()) ;
+        public void run() {
+            while(!isInterrupted());
         }
     }
-    //=========================================================//
 
-
-    //------------------------ Нить №5 ------------------------//
-    public static class Thread5 implements Runnable
-    {
-        public void run()
-        {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            String in;
+    public static class Thread5 extends Thread {
+        public void run() {
+            String s = null;
             int sum = 0;
-
-            System.out.println();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
             try
             {
-                while (!(in = reader.readLine()).equals("N"))
-                {
-                    sum += Integer.valueOf(in);
+                while( !(s = reader.readLine()).equals("N") ) {
+                    sum += Integer.valueOf(s);
                 }
                 System.out.println(sum);
+            }
+            catch (IOException e)
+            {
 
             }
-            catch (IOException e) {}
-        }
-    }
-    //=========================================================//
 
-    public static void main(String[] args)
-    {
-        System.out.println("some");
+        }
     }
 
 }
