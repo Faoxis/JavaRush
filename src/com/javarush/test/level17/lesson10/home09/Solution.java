@@ -20,34 +20,32 @@ public class Solution {
     public static List<String> allLines = new ArrayList<String>();
     public static List<String> forRemoveLines = new ArrayList<String>();
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader file1 = new BufferedReader(new FileReader(reader.readLine()));
         BufferedReader file2 = new BufferedReader(new FileReader(reader.readLine()));
+        reader.close();
 
-        String line;
-
-        while ( (line = file1.readLine()) != null) {
-            allLines.add(line);
+        String s;
+        while ((s = file1.readLine()) != null) {
+            allLines.add(s);
         }
+        file1.close();
 
-        while ( (line = file2.readLine()) != null) {
-            forRemoveLines.add(line);
+        while ((s = file2.readLine()) != null) {
+            forRemoveLines.add(s);
         }
+        file2.close();
+        new Solution().joinData();
 
     }
 
     public synchronized void joinData () throws CorruptedDataException {
-        boolean thereIs = true;
-
-        for (int i = 0; i < allLines.size(); i++) {
-            for (int j = 0; j < forRemoveLines.size(); j++) {
-                if (allLines.get(i).equals(forRemoveLines.get(j))) {
-
-
-                }
-            }
+        if (allLines.containsAll(forRemoveLines)) {
+            allLines.removeAll(forRemoveLines);
+        } else {
+            allLines.clear();
+            throw new CorruptedDataException();
         }
 
     }
