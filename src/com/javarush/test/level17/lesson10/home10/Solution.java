@@ -5,6 +5,8 @@ package com.javarush.test.level17.lesson10.home10;
 2. Исправь synchronized блок так, чтобы массив values заполнился значением 1
 */
 
+// comment for test commit
+
 public class Solution {
     public static void main(String[] args) throws InterruptedException {
         Counter counter1 = new Counter();
