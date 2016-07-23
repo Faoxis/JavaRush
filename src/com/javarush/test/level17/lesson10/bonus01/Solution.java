@@ -57,15 +57,18 @@ public class Solution {
             allPeople.remove(id);
             allPeople.add(id, person);
         } else if (args[0].equals("-d")) {
-//            allPeople.remove(Integer.valueOf(args[1]));
-            System.out.println(Integer.valueOf(args[1]) + 1);
-            allPeople.remove(0);
-            for (int i = 0; i < allPeople.size(); i++) {
-                System.out.println(allPeople.get(i));
-            }
+            allPeople.remove((int) Integer.valueOf(args[1]));
         } else if (args[0].equals("-i")) {
             Person person = allPeople.get(Integer.valueOf(args[1]));
-            System.out.println(person.getName() + " " + person.getSex() + " " + person.getBirthDay());
+            String sex;
+            if (person.getSex() == Sex.MALE) {
+                sex = "м";
+            } else {
+                sex = "ж";
+            }
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+            System.out.println(person.getName() + " " + sex + " "
+                    + dateFormat.format(person.getBirthDay()));
         }
     }
 }
