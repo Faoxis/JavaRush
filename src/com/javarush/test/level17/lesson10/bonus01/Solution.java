@@ -43,6 +43,7 @@ public class Solution {
 
         if(sex.equals("м")) person = Person.createMale(name, simpleDateFormat.parse(bd));
         else person = Person.createFemale(name, simpleDateFormat.parse(bd));
+
         return person;
     }
 
@@ -51,13 +52,17 @@ public class Solution {
         if (args[0].equals("-c")) {
             Person person = getPerson(args[1], args[2], args[3]);
             allPeople.add(person);
+            System.out.println(allPeople.indexOf(person));
         } else if (args[0].equals("-u")) {
             Person person = getPerson(args[2], args[3], args[4]);
             int id = Integer.valueOf(args[1]);
             allPeople.remove(id);
             allPeople.add(id, person);
         } else if (args[0].equals("-d")) {
-            allPeople.remove((int) Integer.valueOf(args[1]));
+            Person person = allPeople.get(Integer.valueOf(args[1]));
+            person.setSex(null);
+            person.setBirthDay(null);
+            person.setName(null);
         } else if (args[0].equals("-i")) {
             Person person = allPeople.get(Integer.valueOf(args[1]));
             String sex;
