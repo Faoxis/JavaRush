@@ -16,29 +16,36 @@ f 361
 */
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
         FileInputStream file = new FileInputStream(args[0]);
-//        FileInputStream file = new FileInputStream("D:\\1.txt");
 
         byte[] bytes = new byte[file.available()];
+
+        // Записываем символы в массив байт
         file.read(bytes);
+
+        // Сортируем полученный массив
         Arrays.sort(bytes);
 
-        int count = 0;
+        // Выставляем счетчик
+        int count = 1;
 
+        // Считаем количество повторов и выводим их на экран
         for (int i = 0; i < bytes.length; i++) {
             if (i != bytes.length - 1 && bytes[i] == bytes[i + 1]) {
                 count++;
             } else {
                 System.out.println( (char) bytes[i] + " " + count);
+                count = 1;
             }
         }
 
         file.close();
+
     }
 }
