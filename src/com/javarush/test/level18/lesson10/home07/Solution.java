@@ -20,11 +20,20 @@ quantity - количество, int
 import java.io.*;
 
 public class Solution {
-    public static void main(String[] args) throws FileNotFoundException {
-//./JavaRush/src/com/javarush/test/level18/lesson10/home07
-        BufferedReader fileReader = new BufferedReader(new InputStreamReader(
-                new FileInputStream("/home/sergei/test.txt")));
+    public static void main(String[] args) throws IOException {
+        BufferedReader readerInput = new BufferedReader(new InputStreamReader(System.in));
 
+        String s = readerInput.readLine();
+        BufferedReader readerFile = new BufferedReader(new InputStreamReader(new FileInputStream(s)));
 
+        String line;
+        while((line = readerFile.readLine()) != null) {
+            if (line.split("[ ]")[0].equals(args[0])) {
+                System.out.println(line );
+            }
+        }
+
+        readerFile.close();
+        readerInput.close();
     }
 }
