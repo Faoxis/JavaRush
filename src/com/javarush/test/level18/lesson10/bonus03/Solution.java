@@ -13,11 +13,9 @@ price - цена, 8 символов
 quantity - количество, 4 символа
 -u  - обновляет данные товара с заданным id
 -d  - производит физическое удаление товара с заданным id (все данные, которые относятся к переданному id)
-
 В файле данные хранятся в следующей последовательности (без разделяющих пробелов):
 id productName price quantity
 Данные дополнены пробелами до их длины
-
 Пример:
 19846   Шорты пляжные синие           159.00  12
 198478  Шорты пляжные черные с рисунко173.00  17
@@ -101,7 +99,7 @@ public class Solution {
         }
         return new String(temp2).getBytes();
     }
-    
+
     public static String clearString(String str, int length) {
         char temp[] = str.toCharArray();
         char temp2[] = new char[length];
@@ -114,7 +112,7 @@ public class Solution {
         }
         return new String(temp2);
     }
-    
+
     public static long getId(String line) {
         char bytesLine[] = line.toCharArray();
 
