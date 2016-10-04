@@ -33,23 +33,21 @@ public class Solution {
     }
 
     public static class MyPrintStream extends PrintStream {
-        private PrintStream printStream;
         private boolean ready = false;
 
         public MyPrintStream(PrintStream printStream) {
             super(printStream);
-            this.printStream = printStream;
         }
 
         @Override
         public void println(String string) {
             if (ready) {
                 ready = false;
-                printStream.println(string);
-                printStream.println("JavaRush - курсы Java онлайн");
+                super.println(string);
+                super.println("JavaRush - курсы Java онлайн");
             } else {
                 ready = true;
-                printStream.println(string);
+                super.println(string);
             }
         }
 
