@@ -19,4 +19,5 @@ public class Asset {
     public void setPrice(double price) {
         this.price = price;
     }
+
 }
