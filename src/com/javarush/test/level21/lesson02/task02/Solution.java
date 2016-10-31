@@ -1,5 +1,6 @@
 package com.javarush.test.level21.lesson02.task02;
 
+
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
@@ -18,7 +19,7 @@ public class Solution {
     }
 
     public static boolean isAllModifiersContainSpecificModifier(int allModifiers, int specificModifier) {
-        return false;
+        return (allModifiers & specificModifier) > 0;
     }
 
     private static Method getMainMethod() {
