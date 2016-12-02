@@ -22,18 +22,20 @@ import java.util.List;
 public class Solution {
     public static void main(String[] args) throws IOException
     {
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//        FileReader fileReader = new FileReader(bufferedReader.readLine());
-//
-//        char buff[] = new char[1024];
-//        StringBuilder stringBuilder = new StringBuilder();
-//        while (fileReader.read(buff) > 0) {
-//            stringBuilder.append(buff);
-//        }
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        FileReader fileReader = new FileReader(bufferedReader.readLine());
+//        FileReader fileReader = new FileReader("/home/sergei/file1.txt");
 
-        StringBuilder result = getLine("Киев Нью-Йорк Амстердам Вена Мельбурн".split("\\s"));
+        char buff[] = new char[1024];
+        StringBuilder stringBuilder = new StringBuilder();
+        while (fileReader.read(buff) > 0) {
+            stringBuilder.append(buff);
+        }
+
+        StringBuilder result = getLine(stringBuilder.toString().trim().split("\\s"));
         System.out.println(result.toString());
-//        fileReader.close();
+
+        fileReader.close();
     }
 
     public static StringBuilder getLine(String... words) {
@@ -66,7 +68,7 @@ public class Solution {
             stringBuilder.append(word);
             stringBuilder.append(" ");
         }
-//        stringBuilder.append()
+        stringBuilder.replace(stringBuilder.lastIndexOf(" "), stringBuilder.lastIndexOf(" ") + 1, "");
 
         return stringBuilder;
     }
