@@ -5,7 +5,7 @@ package com.javarush.test.level22.lesson18.big01;
  */
 public class SuperTestDrive {
     public static void main(String[] args) {
-        Field field = new Field(6, 2);
+        Field field = new Field(6, 3);
         field.setValue(0, 0, 1);
         field.setValue(1,0,1);
         field.setValue(0, 1, 1);
