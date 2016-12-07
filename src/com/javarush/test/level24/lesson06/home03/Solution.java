@@ -22,16 +22,15 @@ public class Solution {
             System.out.println(jeans);
         }
     }
-
-}
-
-interface Jeans extends Item {
-    int getLength();
-    int getSize();
 }
 
 interface Item {
     int getId();
     double getPrice();
     String getTM();
+}
+
+interface Jeans extends Item {
+    int getLength();
+    int getSize();
 }

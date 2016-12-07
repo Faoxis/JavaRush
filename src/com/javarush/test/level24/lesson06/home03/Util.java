@@ -45,17 +45,15 @@ public class Util {
                 return size;
             }
 
-
             @Override
             public double getPrice() {
                 return price;
             }
 
             @Override
-            public String toString()
-            {
-                return  getTM() +
-                        "{id=" + id +
+            public String toString() {
+                return  getClass().getSimpleName() + "{" +
+                        "id=" + id +
                         ", length=" + length +
                         ", size=" + size +
                         ", price=" + price +
@@ -64,27 +62,28 @@ public class Util {
         }
 
         class Levis extends AbstractJeans {
+
             public Levis(int id, int length, int size, double price) {
                 super(id, length, size, price);
             }
 
             @Override
             public String getTM() {
-                return Company.Levis.fullName;
+                return "Levis";
             }
         }
 
         class Denim extends AbstractJeans {
+
             public Denim(int id, int length, int size, double price) {
                 super(id, length, size, price);
             }
 
             @Override
             public String getTM() {
-                return Company.Denim.fullName;
+                return "Denim";
             }
         }
-
 
         List<Jeans> allJeans = new LinkedList<>();
 
