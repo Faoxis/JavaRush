@@ -16,6 +16,7 @@ public class Solution implements Action {
     private Action solutionAction = new Action() {
         //!!!!! Changes can be here
         //!!!!! Изменения могут быть тут
+        SecondClass secondClass = new SecondClass();
 
         public void someAction() {
             //!!!!! All changes have to be here
@@ -28,7 +29,11 @@ public class Solution implements Action {
                             param--;
                         }
                         someAction();
-                        new Solution(0);
+                        secondClass.someAction();
+                        System.out.print(SecondClass.SPECIFIC_ACTION_FOR_ANONYMOUS_SECOND_CLASS_PARAM);
+                        System.out.println(param);
+
+
                     }
                     @Override
                     public Action getDependantAction() {
@@ -36,11 +41,9 @@ public class Solution implements Action {
                     }
                 };
             } else {
-                new SecondClass() {
-                    {
-                        someAction();
-                    }
-                };
+                secondClass.someAction();
+                System.out.print(SecondClass.SPECIFIC_ACTION_FOR_ANONYMOUS_SECOND_CLASS_PARAM);
+                System.out.println(param);
             }
 
         }
