@@ -44,6 +44,7 @@ public class Snake
     public void setDirection(SnakeDirection direction)
     {
         this.direction = direction;
+
     }
 
     public ArrayList<SnakeSection> getSections()
