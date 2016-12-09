@@ -32,7 +32,7 @@ public class Solution {
         String[] filepart = {"closed {4}", "open {2} and last {3}"};
 
         ChoiceFormat fileform = new ChoiceFormat(filelimits, filepart);
-        Format[] testFormats = {null, dateFormat, fileform};
+        Format[] testFormats = {null, null, dateFormat, fileform};
         MessageFormat pattform = new MessageFormat("{0}   {1} | {5} {6}");
         pattform.setFormats(testFormats);
 
@@ -51,9 +51,31 @@ public class Solution {
     public static void sort(List<Stock> list) {
         Collections.sort(list, new Comparator<Stock>() {
             public int compare(Stock stock1, Stock stock2) {
+                int resNameCompare = ((String) stock1.get("name")).compareTo((String) stock2.get("name"));
+                if (resNameCompare == 0) {
+                    Calendar cal1 = Calendar.getInstance();
+                    cal1.setTime((Date) stock1.get("date"));
 
+                    Calendar cal2 = Calendar.getInstance();
+                    cal2.setTime((Date) stock2.get("date"));
 
-                return 0;
+                    int yearCompare = ((Integer) cal1.get(Calendar.YEAR)).compareTo((Integer) cal2.get(Calendar.YEAR));
+                    if (yearCompare != 0) return yearCompare;
+
+                    int monthCompare = ((Integer) cal1.get(Calendar.MONTH)).compareTo((Integer) cal2.get(Calendar.MONTH));
+                    if (monthCompare != 0) return monthCompare;
+
+                    int dayCompare = ((Integer) cal1.get(Calendar.DAY_OF_MONTH)).compareTo((Integer) cal2.get(Calendar.DAY_OF_MONTH));
+                    if (dayCompare != 0) return dayCompare;
+
+                    Double income1 = (double) stock1.get("last") - (double) stock1.get("open");
+                    Double income2 = (double) stock2.get("last") - (double) stock2.get("open");
+
+                    return income2.compareTo(income1);
+                } else {
+                    return resNameCompare;
+                }
+
             }
         });
     }
