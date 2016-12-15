@@ -1,5 +1,7 @@
 package com.javarush.test.level25.lesson11.task02;
 
+import sun.nio.ch.ThreadPool;
+
 /* Первый закон Финэйгла: если эксперимент удался, что-то здесь не так...
 Обеспечьте переуступку кванта времени (переход хода для текущей нити) для последовательных выводов текста в консоль
 */
@@ -25,5 +27,8 @@ public class Solution {
 //        new Thread(new YieldRunnable(4)).start();
 //        new Thread(new YieldRunnable(5)).start();
 //        new Thread(new YieldRunnable(6)).start();
+//
+//        ThreadGroup threadGroup = Thread.currentThread().getThreadGroup();
+//        System.out.println(threadGroup.activeCount());
 //    }
 }
