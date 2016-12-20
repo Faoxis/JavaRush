@@ -14,7 +14,10 @@ public class CashMachine
         String[] denominats = ConsoleHelper.getValidTwoDigits(currencyCode);
         int denominate = Integer.valueOf(denominats[0]);
         int value = Integer.valueOf(denominats[1]);
-        CurrencyManipulatorFactory.getManipulatorByCurrencyCode(currencyCode).addAmount(denominate, value);
+        CurrencyManipulator currencyManipulator = CurrencyManipulatorFactory.getManipulatorByCurrencyCode(currencyCode);
+        currencyManipulator.addAmount(denominate, value);
+        System.out.println(currencyManipulator.getTotalAmount());
+
 
     }
 }

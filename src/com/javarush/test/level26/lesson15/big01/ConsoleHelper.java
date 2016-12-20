@@ -53,4 +53,18 @@ public class ConsoleHelper {
             }
         }
     }
+
+    public static Operation askOperation() {
+        Operation operation;
+
+        while (true) {
+            writeMessage("Введите код операции:");
+            try {
+                operation = Operation.getAllowableOperationByOrdinal(Integer.valueOf(readString()));
+                return operation;
+            } catch (Exception e) {
+                writeMessage("Введенный код не соответствует допустимому набору.");
+            }
+        }
+    }
 }

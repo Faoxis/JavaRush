@@ -1,6 +1,7 @@
 package com.javarush.test.level26.lesson15.big01;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -26,4 +27,14 @@ public class CurrencyManipulator {
             denominations.put(denomination, count);
         }
     }
+
+    public int getTotalAmount() {
+        int counter = 0;
+        for (Map.Entry<Integer, Integer> entry : denominations.entrySet()) {
+            counter += entry.getKey() * entry.getValue();
+        }
+
+        return counter;
+    }
+
 }
