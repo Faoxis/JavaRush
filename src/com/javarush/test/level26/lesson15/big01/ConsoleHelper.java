@@ -26,26 +26,31 @@ public class ConsoleHelper {
         return result;
     }
 
-    public static String askCurrency() {
-        System.out.println("Введите код валюты");
-        try {
-            String value = reader.readLine();
-            if (value.length() != 3) {
-                System.out.println("Введенная валюта состоит не из 3 символов");
-            } else {
-                String currencyCode = value.toUpperCase();
-                System.out.println(currencyCode);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-
+    public static String askCurrencyCode() {
+        while (true) {
+                writeMessage("Введите код валюты:");
+                String value = readString();
+                if (value.length() != 3) {
+                    writeMessage("Введенная валюта состоит не из 3 символов");
+                } else {
+                    return value.toUpperCase();
+                }
         }
-        return null;
     }
 
     public static String[] getValidTwoDigits(String currencyCode) {
+        while (true) {
+            writeMessage("Введите два целых числа для " + currencyCode);
+            String string = readString();
+            String[] stringNumbers = string.split(" ");
 
-        return  null;
+            if (Integer.valueOf(stringNumbers[0]) > 0
+                    && Integer.valueOf(stringNumbers[1]) > 0
+                    && stringNumbers.length == 2) {
+                return stringNumbers;
+            } else {
+                writeMessage("Указано неверное количество входных данных. Необходимо указать два числа.");
+            }
+        }
     }
 }
