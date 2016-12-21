@@ -8,10 +8,9 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 import com.javarush.test.level26.lesson15.big01.exception.NotEnoughMoneyException;
 
 import java.util.Map;
+import java.util.jar.Pack200;
 
-/**
- * Created by samojlov on 20.12.16.
- */
+
 class WithdrawCommand implements Command
 {
     @Override
@@ -22,17 +21,29 @@ class WithdrawCommand implements Command
 
         while (true)
         {
-            int sum = ConsoleHelper.askSum();
-            if (currencyManipulator.isAmountAvailable(sum)) {
-                ConsoleHelper.writeMessage("Данная сумма недоступна");
-                continue;
-            }
-
             try {
-                Map<Integer, Integer> result = currencyManipulator.withdrawAmount(sum);
+                ConsoleHelper.writeMessage("Введите сумму");
+                int sum = Integer.valueOf(ConsoleHelper.readString());
+                if (sum < 0) {
+                    ConsoleHelper.writeMessage("Нельзя ввести отрицательную сумму");
+                    continue;
+                }
+                if (!currencyManipulator.isAmountAvailable(sum)) {
+                    ConsoleHelper.writeMessage("Недостаточно средств.");
+                    continue;
+                }
+
+
+                    Map<Integer, Integer> results = currencyManipulator.withdrawAmount(sum);
+                    for (Map.Entry<Integer, Integer> result : results.entrySet()) {
+                        ConsoleHelper.writeMessage(String.format("\t%s - %s", result.getKey(), result.getValue()));
+                    }
+                    ConsoleHelper.writeMessage("Транзакция была успешно совершена.");
+                    return;
             } catch (NotEnoughMoneyException e) {
-                ConsoleHelper.writeMessage("Нет необходимого количества банкнот требуемого номинала");
-                continue;
+                ConsoleHelper.writeMessage("Нет необходимого количества банкнот требуемого номинала.");
+            } catch (NumberFormatException e) {
+                ConsoleHelper.writeMessage("Это не число");
             }
 
         }

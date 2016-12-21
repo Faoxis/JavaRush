@@ -1,15 +1,9 @@
 package com.javarush.test.level26.lesson15.big01;
 
 import com.javarush.test.level26.lesson15.big01.exception.NotEnoughMoneyException;
+import java.util.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
 
-/**
- * Created by samojlov on 19.12.16.
- */
 public class CurrencyManipulator {
     private String currencyCode;
     private Map<Integer, Integer> denominations;
@@ -46,7 +40,7 @@ public class CurrencyManipulator {
 
     public boolean isAmountAvailable(int expectedAmount)
     {
-        return expectedAmount - getTotalAmount() > 0;
+        return getTotalAmount() - expectedAmount >= 0;
     }
 
     public Map<Integer, Integer> withdrawAmount(int expectedAmount) throws NotEnoughMoneyException
@@ -76,6 +70,18 @@ public class CurrencyManipulator {
             throw new NotEnoughMoneyException();
         }
 
+        ArrayList<Integer> zeroList = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : resultMap.entrySet()) {
+            int key = entry.getKey();
+            denominations.put(key, denominations.get(key) - entry.getValue());
+            if (denominations.get(key) == 0) {
+                zeroList.add(key);
+            }
+        }
+
+        for (Integer zeroKey : zeroList) {
+            denominations.remove(zeroKey);
+        }
 
         return resultMap;
     }

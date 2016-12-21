@@ -76,9 +76,4 @@ public class ConsoleHelper {
         }
     }
 
-    public static int askSum() throws InterruptOperationException
-    {
-        writeMessage("Введите сумму:");
-        return Integer.valueOf(readString());
-    }
 }
