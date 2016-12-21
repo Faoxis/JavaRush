@@ -1,13 +1,12 @@
 package com.javarush.test.level26.lesson15.big01.command;
 
 import com.javarush.test.level26.lesson15.big01.Operation;
+import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by samojlov on 20.12.16.
- */
+
 public class CommandExecutor
 {
     private CommandExecutor() {}
@@ -20,7 +19,9 @@ public class CommandExecutor
         map.put(Operation.EXIT, new ExitCommand());
     }
 
-    public static final void execute(Operation operation) {
+    public static final void execute(Operation operation) throws InterruptOperationException
+    {
         map.get(operation).execute();
     }
 }
+

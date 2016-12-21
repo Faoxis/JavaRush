@@ -1,5 +1,7 @@
 package com.javarush.test.level26.lesson15.big01;
 
+import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -13,7 +15,8 @@ public class ConsoleHelper {
         System.out.println(message);
     }
 
-    public static String readString() {
+    public static String readString()  throws InterruptOperationException
+    {
         String result = null;
 
         try {
@@ -23,10 +26,14 @@ public class ConsoleHelper {
 
         }
 
+        if (result.toUpperCase().equals("EXIT")) {
+            throw new InterruptOperationException();
+        }
+
         return result;
     }
 
-    public static String askCurrencyCode() {
+    public static String askCurrencyCode() throws InterruptOperationException {
         while (true) {
                 writeMessage("Введите код валюты:");
                 String value = readString();
@@ -38,7 +45,7 @@ public class ConsoleHelper {
         }
     }
 
-    public static String[] getValidTwoDigits(String currencyCode) {
+    public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
         while (true) {
             writeMessage("Введите два целых числа для " + currencyCode);
             String string = readString();
@@ -54,7 +61,8 @@ public class ConsoleHelper {
         }
     }
 
-    public static Operation askOperation() {
+    public static Operation askOperation() throws InterruptOperationException
+    {
         Operation operation;
 
         while (true) {
@@ -66,5 +74,11 @@ public class ConsoleHelper {
                 writeMessage("Введенный код не соответствует допустимому набору.");
             }
         }
+    }
+
+    public static int askSum() throws InterruptOperationException
+    {
+        writeMessage("Введите сумму:");
+        return Integer.valueOf(readString());
     }
 }

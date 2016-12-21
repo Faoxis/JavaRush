@@ -28,7 +28,4 @@ public class CurrencyManipulatorFactory {
         return map.values();
     }
 
-    public static boolean hasMany() {
-        return !map.isEmpty();
-    }
 }
