@@ -10,6 +10,7 @@ import java.util.Map;
  */
 public class CommandExecutor
 {
+    private CommandExecutor() {}
     private static Map<Operation, Command> map = new HashMap<>();
 
     static {
@@ -20,6 +21,6 @@ public class CommandExecutor
     }
 
     public static final void execute(Operation operation) {
-
+        map.get(operation).execute();
     }
 }

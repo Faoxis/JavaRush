@@ -1,5 +1,7 @@
 package com.javarush.test.level26.lesson15.big01;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,5 +22,13 @@ public class CurrencyManipulatorFactory {
         }
 
         return currencyManipulator;
+    }
+
+    public static Collection getAllCurrencyManipulators() {
+        return map.values();
+    }
+
+    public static boolean hasMany() {
+        return !map.isEmpty();
     }
 }
