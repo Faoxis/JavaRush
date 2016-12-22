@@ -5,15 +5,15 @@ import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationExce
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ResourceBundle;
 
-/**
- * Created by samojlov on 19.12.16.
- */
+
 public class ConsoleHelper {
     private  static BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     public static void writeMessage(String message) {
         System.out.println(message);
     }
+    private static ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + ".common_en");
 
     public static String readString()  throws InterruptOperationException
     {
@@ -35,7 +35,7 @@ public class ConsoleHelper {
 
     public static String askCurrencyCode() throws InterruptOperationException {
         while (true) {
-                writeMessage("Введите код валюты:");
+                writeMessage(res.getString("choose.currency.code"));
                 String value = readString();
                 if (value.length() != 3) {
                     writeMessage("Введенная валюта состоит не из 3 символов");
@@ -47,7 +47,7 @@ public class ConsoleHelper {
 
     public static String[] getValidTwoDigits(String currencyCode) throws InterruptOperationException {
         while (true) {
-            writeMessage("Введите два целых числа для " + currencyCode);
+            writeMessage(String.format(res.getString("choose.denomination.and.count.format"), currencyCode));
             String string = readString();
             String[] stringNumbers = string.split(" ");
 
@@ -66,14 +66,18 @@ public class ConsoleHelper {
         Operation operation;
 
         while (true) {
-            writeMessage("Введите код операции:");
+            writeMessage(res.getString("choose.operation"));
             try {
                 operation = Operation.getAllowableOperationByOrdinal(Integer.valueOf(readString()));
                 return operation;
             } catch (Exception e) {
-                writeMessage("Введенный код не соответствует допустимому набору.");
+                writeMessage(res.getString("invalid.data"));
             }
         }
+    }
+
+    public static void printExitMessage() {
+        writeMessage(res.getString("the.end"));
     }
 
 }

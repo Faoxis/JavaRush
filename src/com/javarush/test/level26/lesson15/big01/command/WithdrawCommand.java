@@ -1,18 +1,17 @@
 package com.javarush.test.level26.lesson15.big01.command;
 
-import com.javarush.test.level26.lesson15.big01.ConsoleHelper;
-import com.javarush.test.level26.lesson15.big01.CurrencyManipulator;
-import com.javarush.test.level26.lesson15.big01.CurrencyManipulatorFactory;
-import com.javarush.test.level26.lesson15.big01.Operation;
+import com.javarush.test.level26.lesson15.big01.*;
 import com.javarush.test.level26.lesson15.big01.exception.InterruptOperationException;
 import com.javarush.test.level26.lesson15.big01.exception.NotEnoughMoneyException;
 
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.jar.Pack200;
 
 
 class WithdrawCommand implements Command
 {
+    private ResourceBundle res = ResourceBundle.getBundle(CashMachine.RESOURCE_PATH + ".withdraw_en");
     @Override
     public void execute() throws InterruptOperationException
     {
@@ -22,14 +21,14 @@ class WithdrawCommand implements Command
         while (true)
         {
             try {
-                ConsoleHelper.writeMessage("Введите сумму");
+                ConsoleHelper.writeMessage(res.getString("before"));
                 int sum = Integer.valueOf(ConsoleHelper.readString());
                 if (sum < 0) {
-                    ConsoleHelper.writeMessage("Нельзя ввести отрицательную сумму");
+                    ConsoleHelper.writeMessage(res.getString(res.getString("specify.not.empty.amount")));
                     continue;
                 }
                 if (!currencyManipulator.isAmountAvailable(sum)) {
-                    ConsoleHelper.writeMessage("Недостаточно средств.");
+                    ConsoleHelper.writeMessage(res.getString("not.enough.money"));
                     continue;
                 }
 
@@ -38,12 +37,12 @@ class WithdrawCommand implements Command
                     for (Map.Entry<Integer, Integer> result : results.entrySet()) {
                         ConsoleHelper.writeMessage(String.format("\t%s - %s", result.getKey(), result.getValue()));
                     }
-                    ConsoleHelper.writeMessage("Транзакция была успешно совершена.");
+                    ConsoleHelper.writeMessage(String.format(res.getString("success.format"), sum, code));
                     return;
             } catch (NotEnoughMoneyException e) {
-                ConsoleHelper.writeMessage("Нет необходимого количества банкнот требуемого номинала.");
+                ConsoleHelper.writeMessage(res.getString("exact.amount.not.available"));
             } catch (NumberFormatException e) {
-                ConsoleHelper.writeMessage("Это не число");
+                ConsoleHelper.writeMessage(res.getString("specify.amount"));
             }
 
         }
