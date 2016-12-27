@@ -58,15 +58,26 @@ public class Solution {
     public static class AmigoThreadFactory implements ThreadFactory {
 
         private static AtomicInteger groupCounter = new AtomicInteger(0);
+        private int numberOfGroup;
+        private AtomicInteger threadCounter = new AtomicInteger(0);
+
+        public AmigoThreadFactory() {
+            numberOfGroup = groupCounter.incrementAndGet();
+        }
 
         @Override
         public Thread newThread(Runnable runnable)
         {
-//            "GN-pool-A-thread-B";
-            return new Thread(String.format("%s-pool-%s-thread-%s",
-                    this.getClass().getName(), groupCounter.incrementAndGet()
-            ));
+            Thread thread = new Thread(runnable);
+            thread.setDaemon(false);
+            thread.setPriority(Thread.NORM_PRIORITY);
+
+            String threadName = String.format("%s-pool-%s-thread-%s",
+                    thread.getThreadGroup().getName(), numberOfGroup, threadCounter.incrementAndGet());
+            thread.setName(threadName);
+            return thread;
         }
+
 
     }
 }
