@@ -23,7 +23,7 @@ public class MyThread extends Thread
     public MyThread(ThreadGroup threadGroup, Runnable runnable)
     {
         super(threadGroup, runnable);
-        if (threadGroup.getMaxPriority() > 10)
+//        if (threadGroup.getMaxPriority() > 10)
     }
 
     public MyThread(String s)
