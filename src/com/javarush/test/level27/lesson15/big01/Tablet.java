@@ -1,5 +1,6 @@
 package com.javarush.test.level27.lesson15.big01;
 
+import com.javarush.test.level27.lesson15.big01.ad.AdvertisementManager;
 import com.javarush.test.level27.lesson15.big01.kitchen.Order;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ public class Tablet extends Observable {
             Order order = new Order(this);
             ConsoleHelper.writeMessage(order.toString());
             if (!order.isEmpty()) {
+                AdvertisementManager advertisementManager = new AdvertisementManager(order.getTotalCookingTime() * 60);
+                advertisementManager.processVideos();
                 setChanged();
                 notifyObservers(order);
             }

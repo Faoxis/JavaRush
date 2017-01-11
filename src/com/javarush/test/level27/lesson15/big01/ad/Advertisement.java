@@ -1,8 +1,6 @@
 package com.javarush.test.level27.lesson15.big01.ad;
 
-/**
- * Created by samojlov on 09.01.17.
- */
+
 public class Advertisement
 {
     private Object content; // видео
@@ -37,4 +35,6 @@ public class Advertisement
     {
         return amountPerOneDisplaying;
     }
+
+
 }
