@@ -16,50 +16,37 @@ public class AdvertisementManager
         this.timeSeconds = timeSeconds;
     }
 
-    public void processVideos() {
-        List<Advertisement> videos = storage.list();
-        List<Advertisement> advertisementsReadyToWatch = new ArrayList<>();
+    public void processVideos() throws NoVideoAvailableException {
+        if (storage.list().isEmpty()) {
+            throw new NoVideoAvailableException();
+        }
 
-        Collections.sort(videos, new Comparator<Advertisement>() {
-            int getPriceOfSecond(Advertisement advertisement) {
-                return (int) (1000 * advertisement.getAmountPerOneDisplaying() / advertisement.getDuration());
-            }
-
+        List<Advertisement> bestVideos = new ArrayList<>(storage.list());
+        Collections.sort(bestVideos, new Comparator<Advertisement>() {
             @Override
-            public int compare(Advertisement o1, Advertisement o2) {
-                int result = getPriceOfSecond(o1) - getPriceOfSecond(o2);
+            public int compare(Advertisement o1, Advertisement o2)
+            {
+                int result = Long.compare(o2.getAmountPerOneDisplaying(), o1.getAmountPerOneDisplaying());
+                if (result == 0) {
+                    result = Long.compare(o1.getAmountPerOneDisplaying() * 1000 / o1.getDuration(),
+                            o2.getAmountPerOneDisplaying() * 1000 / o2.getDuration());
+                }
+
                 return result;
             }
         });
 
-        int advertisementTime = timeSeconds;
-        for (Advertisement advertisement : storage.list()) {
-            if ((int) advertisement.getAmountPerOneDisplaying() < advertisementTime) {
-                int counter = 0;
-//                while (advertisement.getAmountPerOneDisplaying() < advertisementTime && advertisement. > counter) {
-//
-//                    counter++;
-//
-//                }
+        int totalTime = timeSeconds;
+        for (Advertisement advertisement : bestVideos)
+        {
+            if (advertisement.getDuration() <= totalTime)
+            {
+                ConsoleHelper.writeMessage(advertisement.getName() + " is displaying... "
+                        + advertisement.getAmountPerOneDisplaying()
+                        + ", " + advertisement.getAmountPerOneDisplaying() * 1000 / advertisement.getDuration());
+                advertisement.revalidate();
+                totalTime -= timeSeconds;
             }
-        }
-        System.out.println("------------------------");
-
-    }
-
-    public static void main(String[] args) {
-        AdvertisementManager advertisementManager = new AdvertisementManager(120);
-        printAdvertisementList(advertisementManager);
-        System.out.println("---------------------------------------------------");
-        advertisementManager.processVideos();
-        printAdvertisementList(advertisementManager);
-    }
-
-    public static void printAdvertisementList(AdvertisementManager advertisementManager) {
-        for (Advertisement advertisement : advertisementManager.storage.list()) {
-            System.out.println(advertisement.getName() + " " +
-                    advertisement.getDuration() + " " +
-                    advertisement.getAmountPerOneDisplaying());
         }
     }
 
